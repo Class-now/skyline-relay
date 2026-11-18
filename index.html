@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0b2a4a">
+<title>Skyline Relay</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="stage">
+  <canvas id="game" aria-label="Skyline Relay game area"></canvas>
+
+  <section id="title" class="panel show">
+    <h1>SKYLINE<br><span>RELAY</span></h1>
+    <p class="tag">60 seconds. One button. How high can your glider climb?</p>
+    <ol class="how">
+      <li><b>Hold</b> anywhere (or Space) to lift</li>
+      <li><b>Release</b> to dive and gain speed</li>
+      <li>Fly through <b>rings</b>, catch <b>updrafts</b>, dodge <b>storm cells</b></li>
+    </ol>
+    <button id="play" class="big">TAP TO FLY</button>
+    <div id="board-mini"></div>
+  </section>
+
+  <section id="over" class="panel">
+    <h2>LANDED</h2>
+    <p id="final"></p>
+    <div id="initials-wrap">
+      <p>Enter your initials for today's board</p>
+      <div id="initials">
+        <button data-i="0" class="ini">A</button><button data-i="1" class="ini">A</button><button data-i="2" class="ini">A</button>
+      </div>
+      <p class="hint">Tap a letter to change it</p>
+      <button id="save" class="big">SAVE</button>
+    </div>
+    <div id="board"></div>
+    <button id="again" class="big ghost">NEXT PILOT</button>
+  </section>
+
+  <div id="hud" aria-live="polite">
+    <span id="h-alt">0 m</span>
+    <span id="h-time">60</span>
+    <span id="h-combo"></span>
+  </div>
+  <button id="staff" title="Staff menu (hold 2 s)">⚙</button>
+  <section id="staffmenu" class="panel">
+    <h2>Booth staff</h2>
+    <label>Round length <select id="opt-len"><option>45</option><option selected>60</option><option>90</option></select> s</label>
+    <label><input type="checkbox" id="opt-sound" checked> Sound</label>
+    <label><input type="checkbox" id="opt-attract" checked> Attract mode after 20 s idle</label>
+    <button id="reset-board" class="big ghost">Clear today's board</button>
+    <button id="close-staff" class="big">Close</button>
+  </section>
+</main>
+<script src="game.js"></script>
+</body>
+</html>
