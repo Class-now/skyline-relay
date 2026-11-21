@@ -294,12 +294,36 @@
     state.mode = 'over';
     lastRun = { id: Date.now(), score: Math.floor(state.score), rings: state.rings, combo: state.best };
     $('final').textContent = `${lastRun.score} pts · ${lastRun.rings} rings · best combo x${Math.min(lastRun.combo, 8)}`;
+    $('share-line').textContent = `Beat me at Skyline Relay ? ${lastRun.score} pts`;
+    $('share-status').textContent = '';
     const rows = readBoard();
     const qualifies = rows.length < 10 || lastRun.score > rows[rows.length - 1].score;
     $('initials-wrap').style.display = qualifies ? '' : 'none';
     renderBoard($('board'), null);
     show('over'); beep(392, 0.12); setTimeout(() => beep(523, 0.2), 120);
   }
+
+  $('copy-share').addEventListener('click', async (e) => {
+    e.stopPropagation();
+    const run = lastRun;
+    const text = $('share-line').textContent;
+    let copied = false;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+        copied = true;
+      }
+    } catch { /* clipboard unavailable */ }
+    if (lastRun !== run || state.mode !== 'over') return;
+    if (!copied) {
+      const selection = window.getSelection(), range = document.createRange();
+      range.selectNodeContents($('share-line'));
+      selection.removeAllRanges(); selection.addRange(range);
+      try { copied = document.execCommand('copy'); } catch { /* copy unavailable */ }
+      if (copied) selection.removeAllRanges();
+    }
+    $('share-status').textContent = copied ? 'Copied!' : 'Unable to copy. Select the share line to copy it.';
+  });
 
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   for (const b of document.querySelectorAll('.ini')) {
@@ -354,6 +378,7 @@
   window.addEventListener('pointercancel', release);
   window.addEventListener('keydown', (e) => {
     if (e.code !== 'Space' && e.code !== 'ArrowUp') return;
+    if (state.mode !== 'title' && state.mode !== 'attract' && state.mode !== 'play') return;
     e.preventDefault();
     if (e.repeat) return;
     if (state.mode === 'title' || state.mode === 'attract') startPlay(); else press(e);
