@@ -294,7 +294,7 @@
     state.mode = 'over';
     lastRun = { id: Date.now(), score: Math.floor(state.score), rings: state.rings, combo: state.best };
     $('final').textContent = `${lastRun.score} pts · ${lastRun.rings} rings · best combo x${Math.min(lastRun.combo, 8)}`;
-    $('share-line').textContent = `Beat me at Skyline Relay ? ${lastRun.score} pts`;
+    $('share-line').textContent = `Beat me at Skyline Relay — ${lastRun.score} pts`;
     $('share-status').textContent = '';
     const rows = readBoard();
     const qualifies = rows.length < 10 || lastRun.score > rows[rows.length - 1].score;

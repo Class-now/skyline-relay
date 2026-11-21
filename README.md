@@ -39,7 +39,7 @@ Score = distance flown + ring bonuses (25 × combo per ring).
 | `style.css` | Booth-sized type, high-contrast panels, touch targets of 64 px or more |
 | `game.js` | Flight model, seeded course generator, collision, attract-mode autopilot, leaderboard, WebAudio sound effects |
 
-The course generator is seeded per round (`mulberry32`-style PRNG), so a round can be replayed for testing. `window.__skyline` exposes the state and `update()` so automated checks can run a full round in milliseconds.
+The course generator is seeded per round (`mulberry32`-style PRNG), so a round can be replayed for testing. `window.__skyline` exposes the state and `update()` so automated checks can run a full round in milliseconds. `tests/share_check.py` (Python Playwright) plays full rounds at 1280×720 and 390×844 and checks the results-screen share line, every copy path and the daily board.
 
 ## Built with JetBrains tools
 

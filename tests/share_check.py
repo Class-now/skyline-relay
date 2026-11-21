@@ -32,7 +32,7 @@ def check_viewport(browser, width, height):
     }''')
 
     score = finish_round(page)
-    line = f'Beat me at Skyline Relay ? {score} pts'
+    line = f'Beat me at Skyline Relay — {score} pts'
     assert page.locator('#share-line').inner_text() == line
     assert page.locator('#final').inner_text().startswith(f'{score} pts')
     assert page.locator('#copy-share').bounding_box()['height'] >= 64
@@ -69,7 +69,7 @@ def check_viewport(browser, width, height):
         ({id: i, name: 'AAA', rings: 0, score: 100000 - i}))));
     }''')
     score = finish_round(page)
-    line = f'Beat me at Skyline Relay ? {score} pts'
+    line = f'Beat me at Skyline Relay — {score} pts'
     assert page.locator('#share-line').inner_text() == line
     assert page.locator('#share-status').inner_text() == ''
     assert not page.locator('#initials-wrap').is_visible()
